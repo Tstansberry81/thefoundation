@@ -35,7 +35,7 @@ the protected area immediately:
 This repo includes a `render.yaml` Blueprint that provisions a web service **and**
 a Postgres database automatically.
 
-1. Push this repo to GitHub (e.g. `Tstansberry/thefoundation`).
+1. Push this repo to GitHub (e.g. `Tstansberry81/thefoundation`).
 2. Go to **https://dashboard.render.com/select-repo?type=blueprint**, pick the repo,
    and apply the Blueprint. Render reads `render.yaml` and creates the web service
    + `foundation-db` Postgres.
