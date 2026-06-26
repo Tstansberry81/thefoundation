@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Choose a new password — Meet You There Foundation{% endblock %}
+
+{% block content %}
+<section class="auth">
+  <div class="container">
+    <form class="auth__card" method="post" action="{{ url_for('reset_password', token=token) }}" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <a class="brand" href="{{ url_for('home') }}" style="text-decoration:none;">
+        {% include "_logo.svg" %}
+      </a>
+      <h1>Choose a new password</h1>
+      <p class="sub">Almost done — pick a password you'll remember.</p>
+
+      <div class="field">
+        <label for="password">New password <span class="req" aria-hidden="true">*</span></label>
+        <div class="pw-wrap">
+          <input type="password" id="password" name="password" autocomplete="new-password" required placeholder="At least 8 characters">
+          <button type="button" class="pw-toggle" data-toggle-pw="password" aria-label="Show password">Show</button>
+        </div>
+        <p class="field__hint">Use at least 8 characters.</p>
+      </div>
+
+      <div class="field">
+        <label for="confirm">Confirm password <span class="req" aria-hidden="true">*</span></label>
+        <input type="password" id="confirm" name="confirm" autocomplete="new-password" required placeholder="Re-enter your password">
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--block btn--lg">Update password</button>
+
+      <p class="auth__alt">Back to <a href="{{ url_for('login') }}">sign in</a></p>
+    </form>
+  </div>
+</section>
+{% endblock %}

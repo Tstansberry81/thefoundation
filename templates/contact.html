@@ -14,23 +14,29 @@
 <section class="section" style="padding-top: var(--s-4);">
   <div class="container" style="max-width: 640px;">
     <form class="auth__card" method="post" action="{{ url_for('contact') }}" novalidate style="max-width:none;">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <!-- Honeypot: hidden from real users; bots that fill it are silently dropped. -->
+      <div aria-hidden="true" style="position:absolute; left:-9999px; top:-9999px;">
+        <label for="website">Leave this field empty</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
       <div class="field">
         <label for="name">Your name <span class="req" aria-hidden="true">*</span></label>
-        <input type="text" id="name" name="name" autocomplete="name" required placeholder="First and last name">
+        <input type="text" id="name" name="name" autocomplete="name" required maxlength="200" placeholder="First and last name" value="{{ name or '' }}">
       </div>
       <div class="field">
         <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
-        <input type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com">
+        <input type="email" id="email" name="email" autocomplete="email" required maxlength="255" placeholder="you@example.com" value="{{ email or '' }}">
         <p class="field__hint">We'll only use this to respond to you.</p>
       </div>
       <div class="field">
         <label for="reason">How can we help?</label>
-        <input type="text" id="reason" name="reason" placeholder="e.g. recovery support, a coaching scholarship, partnering">
+        <input type="text" id="reason" name="reason" maxlength="200" placeholder="e.g. recovery support, a coaching scholarship, partnering" value="{{ reason or '' }}">
       </div>
       <div class="field">
-        <label for="message">Your message</label>
-        <textarea id="message" name="message" rows="5" placeholder="Share whatever feels right. There's no wrong way to reach out."
-          style="width:100%; font-family:var(--font-body); font-size:1rem; padding:13px 15px; background:var(--surface-sunk); color:var(--text); border:1.5px solid var(--border-strong); border-radius:var(--radius-sm); resize:vertical;"></textarea>
+        <label for="message">Your message <span class="req" aria-hidden="true">*</span></label>
+        <textarea id="message" name="message" rows="5" required maxlength="5000" placeholder="Share whatever feels right. There's no wrong way to reach out."
+          style="width:100%; font-family:var(--font-body); font-size:1rem; padding:13px 15px; background:var(--surface-sunk); color:var(--text); border:1.5px solid var(--border-strong); border-radius:var(--radius-sm); resize:vertical;">{{ message or '' }}</textarea>
       </div>
       <button type="submit" class="btn btn--primary btn--block btn--lg">Send Message</button>
       <p class="auth__alt">Prefer to sign in? <a href="{{ url_for('login') }}">Member log in</a></p>

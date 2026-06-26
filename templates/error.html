@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} — Meet You There Foundation{% endblock %}
+
+{% block content %}
+<section class="notfound">
+  <div class="container">
+    <p class="eyebrow">{{ code }}</p>
+    <h1 style="font-size: clamp(2rem, 5vw, 3rem);">{{ title }}</h1>
+    <p class="lead" style="margin: var(--s-4) 0 var(--s-6); max-width: 52ch; margin-inline: auto;">{{ message }}</p>
+    <a class="btn btn--primary btn--lg" href="{{ url_for('home') }}">Back to Home</a>
+  </div>
+</section>
+{% endblock %}

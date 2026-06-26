@@ -22,6 +22,32 @@ class Config:
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = "Lax"
     REMEMBER_COOKIE_HTTPONLY = True
+    REMEMBER_COOKIE_SAMESITE = "Lax"
+    # Set SESSION_COOKIE_SECURE=true in the environment once served over HTTPS so
+    # cookies are never sent over plain http.
+    SESSION_COOKIE_SECURE = os.environ.get("SESSION_COOKIE_SECURE", "false").lower() == "true"
+    REMEMBER_COOKIE_SECURE = SESSION_COOKIE_SECURE
+
+    # Reject oversized request bodies (basic DoS / abuse guard): 1 MB.
+    MAX_CONTENT_LENGTH = 1 * 1024 * 1024
+
+    # CSRF tokens stay valid for the session (None = tied to session lifetime).
+    WTF_CSRF_TIME_LIMIT = None
+
+    # Rate-limit backend. "memory://" is fine for a single local process; use a
+    # Redis URL in production so limits are shared across workers.
+    RATELIMIT_STORAGE_URI = os.environ.get("RATELIMIT_STORAGE_URI", "memory://")
+
+    # Set to true ONLY when running behind a trusted reverse proxy / tunnel
+    # (ngrok, cloudflared, a deploy host). It makes the app trust X-Forwarded-*
+    # headers so client IPs and external URLs are correct. Leave false locally —
+    # otherwise clients could spoof their IP to dodge rate limits.
+    TRUST_PROXY = os.environ.get("TRUST_PROXY", "false").lower() == "true"
+    # Optional: force the scheme used when building external links (e.g. https).
+    PREFERRED_URL_SCHEME = os.environ.get("PREFERRED_URL_SCHEME", "http")
+
+    # How long a password-reset link stays valid (seconds). Default 1 hour.
+    PASSWORD_RESET_MAX_AGE = int(os.environ.get("PASSWORD_RESET_MAX_AGE", str(60 * 60)))
 
     # ---------------------------------------------------------------- Email
     # The foundation's support / contact address. Verification emails are sent

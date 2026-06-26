@@ -5,6 +5,7 @@
 <section class="auth">
   <div class="container">
     <form class="auth__card" method="post" action="{{ url_for('login') }}{% if request.args.get('next') %}?next={{ request.args.get('next') }}{% endif %}" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <a class="brand" href="{{ url_for('home') }}" style="text-decoration:none;">
         {% include "_logo.svg" %}
       </a>
@@ -28,7 +29,7 @@
         <label class="check">
           <input type="checkbox" name="remember"> Remember me
         </label>
-        <a href="{{ url_for('contact') }}" style="font-size:0.94rem;">Need help?</a>
+        <a href="{{ url_for('forgot_password') }}" style="font-size:0.94rem;">Forgot password?</a>
       </div>
 
       <button type="submit" class="btn btn--primary btn--block btn--lg">Log in</button>
