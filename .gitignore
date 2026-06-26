@@ -22,3 +22,5 @@ nohup.out
 bin/
 tunnel.log
 lhr.log
+gunicorn.log
+.tunnel_url

@@ -30,6 +30,30 @@ the protected area immediately:
 > Change this password before any real use. You can also create your own account
 > from the **Create account** page.
 
+## Deploying to Render
+
+This repo includes a `render.yaml` Blueprint that provisions a web service **and**
+a Postgres database automatically.
+
+1. Push this repo to GitHub (e.g. `Tstansberry/thefoundation`).
+2. Go to **https://dashboard.render.com/select-repo?type=blueprint**, pick the repo,
+   and apply the Blueprint. Render reads `render.yaml` and creates the web service
+   + `foundation-db` Postgres.
+3. Render will prompt for the **secret** env vars (marked `sync: false`):
+   - **`MAIL_PASSWORD`** — your Gmail App Password (the 16-char one).
+   - **`ADMIN_PASSWORD`** — a strong password for the seeded `admin@meetyouthere.org` account (optional; defaults to `changeme123`).
+4. Deploy. On first boot the app creates the tables and seeds the admin account.
+5. Visit the `https://thefoundation.onrender.com` URL Render gives you.
+
+What's already wired for production via `render.yaml`:
+`SECRET_KEY` (auto-generated), `DATABASE_URL` (from Postgres), `SESSION_COOKIE_SECURE=true`,
+`TRUST_PROXY=true`, `FLASK_DEBUG=0`, and gunicorn as the server.
+
+**Notes & limits**
+- Render's **free** web service sleeps after ~15 min idle (first request then takes ~30s to wake). The **free Postgres** is time-limited — upgrade to a paid instance for a permanent database.
+- Outbound Gmail SMTP works from Render. Gmail may send you a "new sign-in" alert the first time from Render's IP — approve it if asked; the App Password keeps working.
+- For best email deliverability to **all** providers, move to a custom domain + a transactional email service later (the app already speaks SMTP, so it's an env-var change).
+
 ## Security
 
 The app is hardened against common web attacks:

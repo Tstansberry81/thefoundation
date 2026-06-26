@@ -1,0 +1,59 @@
+# Render Blueprint — provisions the web service + Postgres database.
+# Connect this repo at https://dashboard.render.com/select-repo?type=blueprint
+# Secrets marked "sync: false" are entered in the Render dashboard, never here.
+
+services:
+  - type: web
+    name: thefoundation
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 60"
+    healthCheckPath: /
+    envVars:
+      # Pin the Python version (adjust if Render reports it unavailable).
+      - key: PYTHON_VERSION
+        value: "3.13.4"
+
+      # App secret — Render generates a strong random value automatically.
+      - key: SECRET_KEY
+        generateValue: true
+
+      # Production safety
+      - key: FLASK_DEBUG
+        value: "0"
+      - key: SESSION_COOKIE_SECURE
+        value: "true"
+      - key: TRUST_PROXY
+        value: "true"
+
+      # Email (Gmail SMTP). MAIL_PASSWORD is a secret set in the dashboard.
+      - key: SUPPORT_EMAIL
+        value: "andreamariecoaching@gmail.com"
+      - key: MAIL_USERNAME
+        value: "travelerstansberry81@gmail.com"
+      - key: MAIL_SENDER
+        value: "Meet You There Foundation <travelerstansberry81@gmail.com>"
+      - key: MAIL_SERVER
+        value: "smtp.gmail.com"
+      - key: MAIL_PORT
+        value: "587"
+      - key: MAIL_USE_TLS
+        value: "true"
+      - key: MAIL_PASSWORD
+        sync: false
+      # Optional: set a strong admin password (defaults to changeme123 if unset).
+      - key: ADMIN_PASSWORD
+        sync: false
+
+      # Database connection, injected from the Postgres instance below.
+      - key: DATABASE_URL
+        fromDatabase:
+          name: foundation-db
+          property: connectionString
+
+databases:
+  - name: foundation-db
+    plan: free
+    region: oregon

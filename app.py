@@ -516,39 +516,48 @@ def ensure_schema(app: Flask) -> None:
     any accounts that were already registered.
     """
     from sqlalchemy import inspect, text
+    from sqlalchemy.exc import IntegrityError
 
     with app.app_context():
         db.create_all()
 
-        inspector = inspect(db.engine)
-        columns = {c["name"] for c in inspector.get_columns("users")}
-        if "email_verified" not in columns:
-            db.session.execute(
-                text(
-                    "ALTER TABLE users ADD COLUMN email_verified "
-                    "BOOLEAN NOT NULL DEFAULT 0"
+        # Tiny in-place migration for older *SQLite* databases that predate the
+        # email_verified column. On a fresh database (e.g. Postgres on Render)
+        # create_all() already includes the column, so this never runs there.
+        if db.engine.dialect.name == "sqlite":
+            inspector = inspect(db.engine)
+            columns = {c["name"] for c in inspector.get_columns("users")}
+            if "email_verified" not in columns:
+                db.session.execute(
+                    text(
+                        "ALTER TABLE users ADD COLUMN email_verified "
+                        "BOOLEAN NOT NULL DEFAULT 0"
+                    )
                 )
-            )
-            # Existing accounts predate verification — treat them as verified so
-            # nobody gets locked out by the upgrade.
-            db.session.execute(text("UPDATE users SET email_verified = 1"))
-            db.session.commit()
+                # Existing accounts predate verification — treat them as verified.
+                db.session.execute(text("UPDATE users SET email_verified = 1"))
+                db.session.commit()
 
-        admin = User.query.filter_by(email="admin@meetyouthere.org").first()
-        if admin is None:
-            admin = User(
-                name="Foundation Admin",
-                email="admin@meetyouthere.org",
-                role="admin",
-                email_verified=True,
-            )
-            admin.set_password("changeme123")
-            db.session.add(admin)
-            db.session.commit()
-            print(">> Seeded demo login -> admin@meetyouthere.org / changeme123")
-        elif not admin.email_verified:
-            admin.email_verified = True
-            db.session.commit()
+        # Seed the admin account. Wrapped so concurrent workers on first deploy
+        # can't crash racing to insert the same row.
+        try:
+            admin = User.query.filter_by(email="admin@meetyouthere.org").first()
+            if admin is None:
+                admin = User(
+                    name="Foundation Admin",
+                    email="admin@meetyouthere.org",
+                    role="admin",
+                    email_verified=True,
+                )
+                admin.set_password(os.environ.get("ADMIN_PASSWORD", "changeme123"))
+                db.session.add(admin)
+                db.session.commit()
+                print(">> Seeded admin login -> admin@meetyouthere.org")
+            elif not admin.email_verified:
+                admin.email_verified = True
+                db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
 
 
 app = create_app()

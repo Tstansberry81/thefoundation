@@ -13,10 +13,21 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 class Config:
     # In production, set SECRET_KEY as an environment variable.
     SECRET_KEY = os.environ.get("SECRET_KEY", "dev-change-me-in-production-please")
+
+    # Database: use DATABASE_URL when provided (Render Postgres), else local
+    # SQLite. Render hands out "postgres://" URLs, but SQLAlchemy needs the
+    # "postgresql://" scheme — normalize it.
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "DATABASE_URL", "sqlite:///" + os.path.join(BASE_DIR, "instance", "foundation.db")
     )
+    if SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
+        SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace(
+            "postgres://", "postgresql://", 1
+        )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # Recycle/verify pooled connections so a dropped Postgres connection doesn't
+    # surface as an error after idle periods (common on managed databases).
+    SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True}
 
     # Session cookie hardening
     SESSION_COOKIE_HTTPONLY = True
