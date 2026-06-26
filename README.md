@@ -15,7 +15,10 @@ source .venv/bin/activate          # the virtual environment is already created
 python app.py
 ```
 
-Then open **http://127.0.0.1:5000** in your browser.
+Then open **http://127.0.0.1:8000** in your browser.
+
+> Port is **8000**, not 5000 — macOS's AirPlay Receiver occupies port 5000 and
+> intercepts connections (which breaks tunnels/sharing). Override with `PORT=`.
 
 The first run automatically creates the database and a demo login so you can try
 the protected area immediately:
@@ -26,6 +29,38 @@ the protected area immediately:
 
 > Change this password before any real use. You can also create your own account
 > from the **Create account** page.
+
+## Security
+
+The app is hardened against common web attacks:
+
+- **CSRF protection** (Flask-WTF) on every form — forged cross-site POSTs are rejected.
+- **Security headers** — Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy (and HSTS over HTTPS).
+- **Rate limiting** (Flask-Limiter) on login, register, contact, resend, and password-reset to stop brute-force and spam.
+- **Spam honeypot** + validation on the contact form.
+- **Password reset** flow via signed, 1-hour, single-purpose tokens.
+- **Account-enumeration safe** — login, resend, and forgot-password give the same response whether or not an account exists.
+- **Open-redirect safe** login `next=` handling; request size capped; debugger off by default.
+- Passwords hashed (Werkzeug); session/CSRF tokens signed with `SECRET_KEY` from `.env`.
+
+For production, also set in the environment: `FLASK_DEBUG=0` (default), `SESSION_COOKIE_SECURE=true` (once on HTTPS), a Redis `RATELIMIT_STORAGE_URI`, and `TRUST_PROXY=true` only when behind a real proxy/tunnel.
+
+## Letting others test it (temporary public link)
+
+The site runs on your Mac only. To let someone test from their own phone, expose it
+with a tunnel (no account needed):
+
+```bash
+# 1) make sure the app is running (python app.py) on port 8000
+# 2) in another terminal, from the project folder:
+ssh -R 80:localhost:8000 nokey@localhost.run
+```
+
+It prints a public `https://<random>.lhr.life` URL. Share that. While the tunnel
+is running, `.env` should keep `TRUST_PROXY=true` so verification links use the
+public URL. The URL changes each time you restart the tunnel, and old verification
+links stop working when it does — so it's for testing, not launch. For a permanent
+site, deploy to a host (Render/Railway/PythonAnywhere) with a domain + email service.
 
 ## Pages
 

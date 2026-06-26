@@ -558,5 +558,8 @@ ensure_schema(app)
 if __name__ == "__main__":
     # Debug is OFF by default (the Werkzeug debugger can run code). Opt in for
     # local development with FLASK_DEBUG=1. Bind to localhost only.
+    # Port 8000, not 5000 — macOS AirPlay Receiver occupies 5000 and intercepts
+    # connections (including tunnels), so we avoid it. Override with PORT=.
     debug = os.environ.get("FLASK_DEBUG", "0") == "1"
-    app.run(debug=debug, host="127.0.0.1", port=5000)
+    port = int(os.environ.get("PORT", "8000"))
+    app.run(debug=debug, host="127.0.0.1", port=port)
