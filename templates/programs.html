@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Programs — Meet You There Foundation{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <span class="eyebrow">Potential Areas of Impact</span>
+    <h1>Programs &amp; support</h1>
+    <p class="lead prose">Practical aid for individuals who have demonstrated readiness and commitment to positive change.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top: var(--s-4);">
+  <div class="container">
+    <div class="grid grid--3">
+      {% set programs = [
+        ("Recovery & mental health", "Support for sobriety, mental health care, and the daily work of staying well.",
+          "M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3.2 1.2 4 2.5C10.8 6.2 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z"),
+        ("Therapy & counseling scholarships", "Scholarships that put quality therapeutic care within reach for those committed to the work.",
+          "M8 10h8M8 14h5M21 12a8 8 0 0 1-8 8H5l-2 2V12a8 8 0 0 1 16 0z"),
+        ("Coaching scholarships", "Funded coaching relationships that help people set goals and build momentum.",
+          "M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 21l-4.9-2.8.9-5.5-4-3.9 5.5-.8z"),
+        ("Family support & education", "Programs that help families understand, support, and heal alongside their loved one.",
+          "M3 20a6 6 0 0 1 12 0M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM17 20a5 5 0 0 0-3-4.6M16 4.2a3.5 3.5 0 0 1 0 6.6"),
+        ("Transitional assistance", "Practical, recovery-related help during the fragile in-between moments of change.",
+          "M4 12h16M4 12l5-5M4 12l5 5"),
+        ("Personal development & resilience", "Education and opportunities that build lasting resilience and self-direction.",
+          "M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1")
+      ] %}
+      {% for title, body, path in programs %}
+      <article class="card">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="{{ path }}" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>{{ title }}</h3>
+        <p>{{ body }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container prose" style="text-align:center;">
+    <span class="eyebrow">How readiness-based grants work</span>
+    <h2>Support follows commitment</h2>
+    <p>We prioritize people who are already engaged in their own journey — those who have raised their hand and taken a meaningful first step. Grants and resources are directed toward removing the specific barrier standing between someone and their next step forward.</p>
+    <div class="hero__cta" style="justify-content:center; margin-top: var(--s-6);">
+      <a class="btn btn--primary btn--lg" href="{{ url_for('contact') }}">Start a Conversation</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

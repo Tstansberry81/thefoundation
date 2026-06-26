@@ -1,0 +1,41 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__about">
+        <a class="brand" href="{{ url_for('home') }}" style="text-decoration:none;">
+          {% include "_logo.svg" %}
+          <span class="brand__text">
+            <span class="brand__name">Meet You There</span>
+            <span class="brand__sub">Foundation</span>
+          </span>
+        </a>
+        <p>When someone takes the courageous step of asking for help and committing to change, our community has an opportunity to respond. We meet them there.</p>
+        <p style="margin-top: var(--s-3);"><a href="mailto:{{ support_email }}">{{ support_email }}</a></p>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="{{ url_for('home') }}">Home</a></li>
+          <li><a href="{{ url_for('mission') }}">Our Mission</a></li>
+          <li><a href="{{ url_for('programs') }}">Programs</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Members</h4>
+        <ul>
+          <li><a href="{{ url_for('login') }}">Log in</a></li>
+          <li><a href="{{ url_for('register') }}">Create account</a></li>
+          <li><a href="{{ url_for('contact') }}">Request support</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>&copy; {{ now_year }} Meet You There Foundation. All rights reserved.</span>
+      <span>Built with care &middot; We cannot do the work for you, but we can meet you there.</span>
+    </div>
+  </div>
+</footer>

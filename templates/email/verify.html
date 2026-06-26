@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+<body style="margin:0; padding:0; background:#FAF7F1; font-family:Arial,Helvetica,sans-serif; color:#2C2823;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FAF7F1; padding:32px 0;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="520" cellpadding="0" cellspacing="0" style="max-width:520px; background:#FFFFFF; border:1px solid #E5DCCB; border-radius:18px; overflow:hidden;">
+          <tr>
+            <td style="padding:32px 40px 8px;">
+              <div style="font-family:Georgia,'Times New Roman',serif; font-size:20px; font-weight:bold; color:#2C2823;">Meet You There Foundation</div>
+              <div style="font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#8A8073; margin-top:4px;">Verify your email</div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:16px 40px 8px;">
+              <h1 style="font-family:Georgia,serif; font-size:24px; color:#2C2823; margin:0 0 16px;">Hi {{ name }}, one quick step.</h1>
+              <p style="font-size:16px; line-height:1.6; color:#5A5248; margin:0 0 24px;">
+                Thank you for creating an account. Please confirm your email address so we can keep your access secure.
+              </p>
+              <table role="presentation" cellpadding="0" cellspacing="0">
+                <tr><td style="border-radius:999px; background:#8A9A5B;">
+                  <a href="{{ verify_url }}" style="display:inline-block; padding:14px 30px; font-size:16px; font-weight:bold; color:#FFFFFF; text-decoration:none; border-radius:999px;">Verify my email</a>
+                </td></tr>
+              </table>
+              <p style="font-size:13px; line-height:1.6; color:#8A8073; margin:24px 0 0;">
+                This link expires in 24 hours. If the button doesn't work, copy and paste this address into your browser:<br>
+                <a href="{{ verify_url }}" style="color:#6E7C46; word-break:break-all;">{{ verify_url }}</a>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 40px 32px;">
+              <hr style="border:none; border-top:1px solid #E5DCCB; margin:0 0 16px;">
+              <p style="font-size:12px; line-height:1.6; color:#8A8073; margin:0;">
+                If you didn't create this account, you can safely ignore this email.<br>
+                &copy; Meet You There Foundation
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

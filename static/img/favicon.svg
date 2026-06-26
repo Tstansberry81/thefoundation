@@ -1,0 +1,6 @@
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="15" fill="#FAF7F1"/>
+  <!-- Filled two-tone heart — legible at tiny favicon sizes. -->
+  <path d="M32 50 C 18 40, 10 32, 10 24 C 10 17, 17 13, 23 16 C 27 18, 30 22, 32 26 L 32 50 Z" fill="#6E7C46"/>
+  <path d="M32 50 C 46 40, 54 32, 54 24 C 54 17, 47 13, 41 16 C 37 18, 34 22, 32 26 L 32 50 Z" fill="#B08D57"/>
+</svg>

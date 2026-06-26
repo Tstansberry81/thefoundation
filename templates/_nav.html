@@ -1,0 +1,36 @@
+<header class="nav" id="site-nav">
+  <div class="container nav__inner">
+    <a class="brand" href="{{ url_for('home') }}" aria-label="Meet You There Foundation home">
+      {% include "_logo.svg" %}
+      <span class="brand__text">
+        <span class="brand__name">Meet You There</span>
+        <span class="brand__sub">Foundation</span>
+      </span>
+    </a>
+
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="{{ url_for('home') }}" class="{{ 'is-active' if request.endpoint == 'home' }}">Home</a></li>
+        <li><a href="{{ url_for('mission') }}" class="{{ 'is-active' if request.endpoint == 'mission' }}">Our Mission</a></li>
+        <li><a href="{{ url_for('programs') }}" class="{{ 'is-active' if request.endpoint == 'programs' }}">Programs</a></li>
+        <li><a href="{{ url_for('contact') }}" class="{{ 'is-active' if request.endpoint == 'contact' }}">Contact</a></li>
+        {% if current_user.is_authenticated %}
+          <li><a href="{{ url_for('portal') }}" class="{{ 'is-active' if request.endpoint == 'portal' }}">Member Portal</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+
+    <div class="nav__actions">
+      {% if current_user.is_authenticated %}
+        <a class="btn btn--ghost" href="{{ url_for('logout') }}">Sign out</a>
+        <a class="btn btn--primary" href="{{ url_for('portal') }}">Portal</a>
+      {% else %}
+        <a class="btn btn--ghost" href="{{ url_for('contact') }}">Get Support</a>
+        <a class="btn btn--primary" href="{{ url_for('login') }}">Log in</a>
+      {% endif %}
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>

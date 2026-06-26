@@ -1,0 +1,9 @@
+<svg class="brand__mark" viewBox="0 0 64 64" fill="none" role="img" aria-label="Meet You There Foundation logo" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="17" fill="#E7EADD"/>
+  <!-- Two paths (sage + gold) meet at the base and rise into an open heart:
+       two people coming together with care. -->
+  <path d="M32 49 C 24 42, 12 35, 12 25 C 12 17, 21 13, 26 19 C 29 22, 31 25, 32 28"
+        stroke="#6E7C46" stroke-width="4.4" stroke-linecap="round" fill="none"/>
+  <path d="M32 49 C 40 42, 52 35, 52 25 C 52 17, 43 13, 38 19 C 35 22, 33 25, 32 28"
+        stroke="#B08D57" stroke-width="4.4" stroke-linecap="round" fill="none"/>
+</svg>

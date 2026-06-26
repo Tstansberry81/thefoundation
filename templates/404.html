@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Page not found — Meet You There Foundation{% endblock %}
+
+{% block content %}
+<section class="notfound">
+  <div class="container">
+    <h1>404</h1>
+    <h2 style="margin-bottom: var(--s-4);">We couldn't find that page</h2>
+    <p class="lead" style="margin-bottom: var(--s-6);">The page may have moved — but we're still here, and still glad you came.</p>
+    <a class="btn btn--primary btn--lg" href="{{ url_for('home') }}">Back to Home</a>
+  </div>
+</section>
+{% endblock %}

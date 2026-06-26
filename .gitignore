@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Flask / app
+instance/
+*.db
+*.sqlite3
+.env
+
+# Logs / process output
+server.log
+nohup.out
+
+# OS
+.DS_Store

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Check your email — Meet You There Foundation{% endblock %}
+
+{% block content %}
+<section class="auth">
+  <div class="container">
+    <div class="auth__card">
+      <a class="brand" href="{{ url_for('home') }}" style="text-decoration:none;">
+        {% include "_logo.svg" %}
+      </a>
+      <h1>Check your inbox</h1>
+      <p class="sub">
+        We've sent a verification link{% if email %} to <strong>{{ email }}</strong>{% endif %}.
+        Open it to confirm your email, then sign in.
+      </p>
+
+      {% if dev_link %}
+      <div class="flash flash--info" style="margin-bottom: var(--s-5); flex-direction:column; align-items:flex-start;">
+        <strong style="margin-bottom:6px;">Developer mode — email sending isn't configured yet.</strong>
+        <span style="margin-bottom:10px;">Use this link to verify directly while testing:</span>
+        <a class="btn btn--primary" href="{{ dev_link }}" style="word-break:break-all;">Verify now</a>
+      </div>
+      {% endif %}
+
+      <p class="field__hint" style="text-align:center; margin-bottom: var(--s-5);">
+        Didn't get it? Check your spam folder, or request a new link below.
+      </p>
+
+      <form method="post" action="{{ url_for('resend_verification') }}">
+        <input type="hidden" name="email" value="{{ email }}">
+        <button type="submit" class="btn btn--ghost btn--block">Resend verification email</button>
+      </form>
+
+      <p class="auth__alt">Already verified? <a href="{{ url_for('login') }}">Sign in</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}

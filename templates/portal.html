@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Member Portal — Meet You There Foundation{% endblock %}
+
+{% block content %}
+<section class="portal">
+  <div class="container">
+    <div class="portal__welcome reveal">
+      <span class="eyebrow">Member Portal</span>
+      <h1>Welcome, {{ current_user.name.split()[0] }}</h1>
+      <p>This is the protected member area. Anyone can read the public site, but these resources are only available to people who are signed in. Here you'll find your support materials, applications, and next steps.</p>
+    </div>
+
+    <div class="grid grid--3">
+      <article class="card portal__resource">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 10h8M8 14h5M21 12a8 8 0 0 1-8 8H5l-2 2V12a8 8 0 0 1 16 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Your support plan</h3>
+        <p>Review the resources and next steps your coordinator has set up for you.</p>
+      </article>
+
+      <article class="card portal__resource">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 12h6M9 16h6M9 8h2M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Applications &amp; forms</h3>
+        <p>Start or continue a scholarship or grant application from your account.</p>
+      </article>
+
+      <article class="card portal__resource">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 20a6 6 0 0 1 12 0M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Talk to a coordinator</h3>
+        <p>Reach the person walking alongside you whenever you need to.</p>
+      </article>
+    </div>
+
+    {% if current_user.is_admin %}
+    <div class="portal__welcome reveal" style="margin-top: var(--s-6); background: var(--gold-soft);">
+      <span class="eyebrow">Administrator</span>
+      <h2 style="font-size:1.6rem;">Admin tools</h2>
+      <p>You're signed in as an administrator. This is where member management and grant review tools would live as the foundation grows.</p>
+    </div>
+    {% endif %}
+
+    <div style="margin-top: var(--s-7);">
+      <a class="btn btn--ghost" href="{{ url_for('logout') }}">Sign out</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

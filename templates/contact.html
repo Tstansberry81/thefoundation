@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Contact — Meet You There Foundation{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <span class="eyebrow">Contact</span>
+    <h1>Let's meet you there</h1>
+    <p class="lead prose">Whether you're seeking support or want to help, we'd love to hear from you. Tell us a little about where you are.</p>
+    <p class="prose" style="margin-top: var(--s-4);">Prefer email? Reach us directly at <a href="mailto:{{ support_email }}">{{ support_email }}</a>.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top: var(--s-4);">
+  <div class="container" style="max-width: 640px;">
+    <form class="auth__card" method="post" action="{{ url_for('contact') }}" novalidate style="max-width:none;">
+      <div class="field">
+        <label for="name">Your name <span class="req" aria-hidden="true">*</span></label>
+        <input type="text" id="name" name="name" autocomplete="name" required placeholder="First and last name">
+      </div>
+      <div class="field">
+        <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
+        <input type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com">
+        <p class="field__hint">We'll only use this to respond to you.</p>
+      </div>
+      <div class="field">
+        <label for="reason">How can we help?</label>
+        <input type="text" id="reason" name="reason" placeholder="e.g. recovery support, a coaching scholarship, partnering">
+      </div>
+      <div class="field">
+        <label for="message">Your message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Share whatever feels right. There's no wrong way to reach out."
+          style="width:100%; font-family:var(--font-body); font-size:1rem; padding:13px 15px; background:var(--surface-sunk); color:var(--text); border:1.5px solid var(--border-strong); border-radius:var(--radius-sm); resize:vertical;"></textarea>
+      </div>
+      <button type="submit" class="btn btn--primary btn--block btn--lg">Send Message</button>
+      <p class="auth__alt">Prefer to sign in? <a href="{{ url_for('login') }}">Member log in</a></p>
+    </form>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Our Mission — Meet You There Foundation{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <span class="eyebrow">Our Mission</span>
+    <h1>We meet people where they are</h1>
+  </div>
+</section>
+
+<section class="section" style="padding-top: var(--s-4);">
+  <div class="container prose">
+    <p class="lead">The Meet You There Foundation exists to support individuals and families who have demonstrated a willingness to take meaningful steps toward healing, recovery, growth, stability, or personal transformation — but who lack the financial resources, support, or access needed to move forward.</p>
+
+    <p>We believe lasting change cannot be forced, purchased, or imposed. It begins when a person raises their hand, asks for help, and chooses to engage in their own journey. Our role is not to create willingness, but to meet it.</p>
+
+    <h2>Guiding philosophy</h2>
+    <p>When people are ready to take the next step, they should not have to do it alone.</p>
+    <p>The Meet You There Foundation seeks to remove barriers for individuals who have demonstrated commitment to their own growth and recovery — providing financial assistance, educational opportunities, coaching support, therapeutic resources, and other forms of practical aid that help them move forward.</p>
+
+    <h2>Our core values</h2>
+  </div>
+
+  <div class="container" style="margin-top: var(--s-6);">
+    <div class="grid grid--2 values">
+      {% set values = [
+        ("Agency", "We believe individuals are capable of meaningful change when empowered and supported."),
+        ("Willingness", "We prioritize supporting those who are actively engaged in their own healing, recovery, growth, or life transition."),
+        ("Dignity", "We meet people where they are without judgment, shame, or stigma."),
+        ("Partnership", "We walk alongside people; we do not rescue, direct, or control them."),
+        ("Access", "We believe financial circumstances should not determine whether someone receives quality support.")
+      ] %}
+      {% for title, body in values %}
+      <div class="value">
+        <span class="value__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <div>
+          <h3>{{ title }}</h3>
+          <p>{{ body }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section cta-band" style="padding-top: 0;">
+  <div class="container">
+    <div class="card">
+      <h2>We cannot do the work for you. But we can meet you there.</h2>
+      <p class="lead">If you've taken the step of asking for help, we'd be honored to walk alongside you.</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary btn--lg" href="{{ url_for('contact') }}">Request Support</a>
+        <a class="btn btn--ghost btn--lg" href="{{ url_for('programs') }}">See Our Programs</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

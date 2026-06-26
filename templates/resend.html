@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Resend verification — Meet You There Foundation{% endblock %}
+
+{% block content %}
+<section class="auth">
+  <div class="container">
+    <form class="auth__card" method="post" action="{{ url_for('resend_verification') }}" novalidate>
+      <a class="brand" href="{{ url_for('home') }}" style="text-decoration:none;">
+        {% include "_logo.svg" %}
+      </a>
+      <h1>Resend verification</h1>
+      <p class="sub">Enter your email and we'll send a fresh verification link.</p>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com">
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--block btn--lg">Send new link</button>
+
+      <p class="auth__alt">Back to <a href="{{ url_for('login') }}">sign in</a></p>
+    </form>
+  </div>
+</section>
+{% endblock %}

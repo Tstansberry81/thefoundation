@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block title %}Meet You There Foundation — Meeting Willingness with Support{% endblock %}
+
+{% block content %}
+<!-- ============================================================ Hero -->
+<section class="hero">
+  <div class="container hero__grid">
+    <div class="reveal">
+      <span class="eyebrow">A foundation for readiness</span>
+      <h1>When you're ready to take the next step, you shouldn't have to take it alone.</h1>
+      <p class="hero__lead">We remove the barriers for people who have shown the willingness to heal, recover, and grow — with financial assistance, coaching, therapy, and practical support.</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary btn--lg" href="{{ url_for('contact') }}">Ask for Support</a>
+        <a class="btn btn--ghost btn--lg" href="{{ url_for('mission') }}">Our Mission</a>
+      </div>
+      <p class="hero__note">We don't create willingness — we meet it.</p>
+    </div>
+
+    <aside class="hero__card reveal-2" aria-label="Founding belief">
+      <p class="hero__quote">"Lasting change cannot be forced, purchased, or imposed. It begins when a person raises their hand and <span>chooses to engage</span> in their own journey."</p>
+      <hr class="hero__rule">
+      <p class="hero__sign">— The founding belief of Meet You There</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ====================================================== Mission -->
+<section class="section section--alt" id="mission">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">Our Mission</span>
+      <h2>We meet willingness with support</h2>
+      <p>The Meet You There Foundation exists to support individuals and families who have demonstrated a willingness to take meaningful steps toward healing, recovery, growth, and stability — but who lack the financial resources or access needed to move forward.</p>
+    </div>
+
+    <div class="grid grid--3 values">
+      <article class="card">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.35-9.5-8.5C.5 9 2.5 5 6 5c2 0 3.2 1.2 4 2.5C10.8 6.2 12 5 14 5c3.5 0 5.5 4 3.5 7.5C19 16.65 12 21 12 21z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Healing &amp; recovery</h3>
+        <p>Support for mental health, sobriety, and the daily work of getting well — meeting people exactly where they are.</p>
+      </article>
+      <article class="card">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5"/></svg>
+        </div>
+        <h3>Growth &amp; transformation</h3>
+        <p>Coaching, education, and resilience-building for people committed to becoming who they're ready to be.</p>
+      </article>
+      <article class="card">
+        <div class="card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 20a6 6 0 0 1 12 0M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM17 20a5 5 0 0 0-3-4.6M16 4.2a3.5 3.5 0 0 1 0 6.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Stability &amp; family</h3>
+        <p>Transitional assistance and family education that help a person — and the people around them — find solid ground.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= Values -->
+<section class="section" id="values">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">Core Values</span>
+      <h2>How we walk alongside people</h2>
+      <p>We walk alongside people; we do not rescue, direct, or control them.</p>
+    </div>
+
+    <div class="grid grid--2 values">
+      {% set values = [
+        ("Agency", "We believe individuals are capable of meaningful change when empowered and supported."),
+        ("Willingness", "We prioritize supporting those who are actively engaged in their own healing, recovery, and growth."),
+        ("Dignity", "We meet people where they are — without judgment, shame, or stigma."),
+        ("Partnership", "We walk alongside people; we do not rescue, direct, or control them."),
+        ("Access", "We believe financial circumstances should not determine whether someone receives quality support.")
+      ] %}
+      {% for title, body in values %}
+      <div class="value">
+        <span class="value__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <div>
+          <h3>{{ title }}</h3>
+          <p>{{ body }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= Impact -->
+<section class="section section--alt" id="impact">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">Potential Areas of Impact</span>
+      <h2>Where support can go</h2>
+      <p>Grants and resources for individuals who have demonstrated readiness and commitment to positive change.</p>
+    </div>
+    <div class="pills">
+      {% for item in [
+        "Recovery & mental health support",
+        "Therapy & counseling scholarships",
+        "Coaching scholarships",
+        "Family support & education",
+        "Transitional & recovery assistance",
+        "Personal development & resilience",
+        "Readiness-based grants"
+      ] %}
+      <span class="pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        {{ item }}
+      </span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= Vision -->
+<section class="section">
+  <div class="container">
+    <div class="vision">
+      <span class="eyebrow">Founding Vision</span>
+      <h2>When someone asks for help, our community can respond</h2>
+      <p>The inspiration for the Meet You There Foundation comes from a simple belief: when someone takes the courageous step of asking for help and committing to change, our community has an opportunity to respond.</p>
+      <div class="stack">
+        <p>We cannot do the work for them.</p>
+        <p>But we can meet them there.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== CTA -->
+<section class="section cta-band">
+  <div class="container">
+    <div class="card">
+      <span class="eyebrow">Take the next step</span>
+      <h2>Ready to raise your hand?</h2>
+      <p class="lead">Whether you're seeking support or want to help us meet someone there, we'd love to hear from you.</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary btn--lg" href="{{ url_for('contact') }}">Request Support</a>
+        <a class="btn btn--gold btn--lg" href="{{ url_for('contact') }}">Partner With Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
