@@ -74,6 +74,10 @@ class Config:
     MAIL_USE_TLS = os.environ.get("MAIL_USE_TLS", "true").lower() == "true"
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")  # e.g. andreamariecoaching@gmail.com
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")  # Gmail App Password
+
+    # Preferred on cloud hosts (Render blocks outbound SMTP): when set, email is
+    # sent via SendGrid's HTTPS API (port 443) instead of SMTP.
+    SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
     MAIL_SENDER = os.environ.get(
         "MAIL_SENDER", f"Meet You There Foundation <{SUPPORT_EMAIL}>"
     )

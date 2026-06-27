@@ -28,20 +28,27 @@ services:
       - key: TRUST_PROXY
         value: "true"
 
-      # Email (Gmail SMTP). MAIL_PASSWORD is a secret set in the dashboard.
+      # Email via SendGrid SMTP (reliable delivery to all recipients).
+      # For SendGrid, MAIL_USERNAME is the literal word "apikey" and
+      # MAIL_PASSWORD is the API key (set as a secret in the dashboard).
       - key: SUPPORT_EMAIL
         value: "andreamariecoaching@gmail.com"
       - key: MAIL_USERNAME
-        value: "travelerstansberry81@gmail.com"
+        value: "apikey"
+      # From address — MUST match a verified SendGrid sender.
       - key: MAIL_SENDER
         value: "Meet You There Foundation <travelerstansberry81@gmail.com>"
       - key: MAIL_SERVER
-        value: "smtp.gmail.com"
+        value: "smtp.sendgrid.net"
       - key: MAIL_PORT
         value: "587"
       - key: MAIL_USE_TLS
         value: "true"
       - key: MAIL_PASSWORD
+        sync: false
+      # Render blocks outbound SMTP, so email is sent via SendGrid's HTTPS API.
+      # Set this to your SendGrid API key (the SG.… value) in the dashboard.
+      - key: SENDGRID_API_KEY
         sync: false
       # Optional: set a strong admin password (defaults to changeme123 if unset).
       - key: ADMIN_PASSWORD
