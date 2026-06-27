@@ -76,8 +76,13 @@ class Config:
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")  # Gmail App Password
 
     # Preferred on cloud hosts (Render blocks outbound SMTP): when set, email is
-    # sent via SendGrid's HTTPS API (port 443) instead of SMTP.
+    # sent via SendGrid's HTTPS API (port 443) instead of SMTP. If not set
+    # explicitly, fall back to MAIL_PASSWORD when it's a SendGrid key (starts
+    # with "SG."), so an existing SendGrid SMTP config sends via the API too —
+    # no separate env var required.
     SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+    if not SENDGRID_API_KEY and MAIL_PASSWORD and MAIL_PASSWORD.startswith("SG."):
+        SENDGRID_API_KEY = MAIL_PASSWORD
     MAIL_SENDER = os.environ.get(
         "MAIL_SENDER", f"Meet You There Foundation <{SUPPORT_EMAIL}>"
     )
